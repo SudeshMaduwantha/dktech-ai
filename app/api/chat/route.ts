@@ -128,8 +128,12 @@ export async function POST(req: Request) {
     console.error("------------------------");
 
     return NextResponse.json(
-      { error: error.message || "Something went wrong" },
+      {
+        error: error.message || "Something went wrong",
+        details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      },
       { status: 500 }
     );
+
   }
 }
